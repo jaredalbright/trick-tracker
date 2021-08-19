@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header";
+import AddTrick from "./components/AddTrick";
+import Login from "./components/Login";
+import UserDash from "./components/UserDash"
+import { useState } from "react";
+import React from "react";
+//import trickDataService from "../services/trickDB"
+//import { Switch, Route, Link} from "react-router-dom";
 
 function App() {
+  const [showNewTrick, setShowNewTrick] = useState(false);
+  const [userInfo, setUserInfo] = useState([]);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header
+        showAdd={() => setShowNewTrick(!showNewTrick)}
+        setShowLogin={() => setShowLoginForm(!showLoginForm)}
+      />
+      {showLoginForm && (
+        <Login
+          setUserInfo={setUserInfo}
+          loginOff={() => setShowLoginForm(!showLoginForm)}
+        />
+      )}
+      {(userInfo.length > 0 && showNewTrick) && <AddTrick userInfo = {userInfo}/>}
+      {(userInfo.length > 0) && <UserDash userInfo = {userInfo}/>}
     </div>
   );
 }
