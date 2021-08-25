@@ -5,7 +5,7 @@ import Button from "./Button";
 import LastAddStep from "./LastAddStep";
 import SearchResult from "./SearchResult";
 
-const AddTrick = ({userInfo}) => {
+const AddTrick = ({userInfo, trickMenu, setRefresh}) => {
   const [showSearch, setShowSearch] = useState(false);
   const [showType, setType] = useState(false);
   const [query, setQuery] = useState("");
@@ -41,7 +41,7 @@ const AddTrick = ({userInfo}) => {
       )}
       {
         (newTrick !== null) && (
-          <LastAddStep trick = {newTrick} userInfo = {userInfo}/>
+          <LastAddStep trick = {newTrick} userInfo = {userInfo} trickMenu = {trickMenu} refresh={setRefresh}/>
         )
       }
     </div>

@@ -1,43 +1,104 @@
-import {useState} from 'react';
-import Button from './Button';
-import { FaTimes, FaEdit } from 'react-icons/fa';
-import trickDataService from '../services/trickDB';
-import { deleteRiderTrick } from '../../backend/controller/tListCTRL';
+import { useState } from "react";
+import Button from "./Button";
+import { FaTimes, FaEdit } from "react-icons/fa";
+import trickDataService from "../services/trickDB";
 
-const TrickCard = ({trick, loadTrick}) => {
-    const [expand, setExpand] = useState(false);
-    const onClickOption = () => {
-        if (loadTrick != null) {
-            loadTrick(trick);
-        }
-        else {
-            setExpand(!expand);
-        }
+const TrickCard = ({ trick, loadTrick, refresh }) => {
+  const [expand, setExpand] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [newNotes, setNewNotes] = useState("");
+  const [comfortLevel, changeComfortLevel] = useState(trick.Comfort);
+
+  const onClickOption = () => {
+    if (loadTrick != null) {
+      loadTrick(trick);
+    } else if (!showEdit) {
+        setExpand(true);
+    } else {
+        setExpand(!expand);
     }
+  };
 
-    const edit = () => {
-    }
+  const edit = (e) => {
+      e.preventDefault();
 
-    const erase = () => {
-        deleteRiderTrick(trick._id);
-    }
+    const edits = {
+      Notes: newNotes,
+      Comfort: comfortLevel,
+    };
+    trickDataService.updateTrick(trick._id, edits)
+    .then(() => {
+      refresh();
+    })
+    .catch(e => {
+        console.log(e);
+    });
+  };
 
-    return (
-        <div className = "trick-card" onClick={() => onClickOption()}>
-            <h3> {trick.name}</h3>
-            {expand && <div> <h5 className = "extra-card">
-                Comfort Level: {trick.Comfort}
-            </h5>
-            <h5 className = "extra-card">
-                Date Landed: {trick['Date Landed']} <FaTimes size = {25} className = 'edit' style = {{color:'red'}} onClick={()=>edit()}/> <FaEdit size = {25} className = 'edit'  onClick={()=>erase()}/>
-            </h5>
-            <h5 className = "extra-card">
-                Notes: {trick.Notes}
-            </h5>
+  const erase = () => {
+    trickDataService.deleteTrick(trick._id)
+    .then(() => {
+      refresh();
+    })
+    .catch(e => {
+        console.log(e);
+    });
+  };
 
-            </div>}
+  return (
+      <div>
+    <div className="trick-card" onClick={() => onClickOption()}>
+      <h3> {trick.name}</h3>
+      {expand && (
+        <div>
+          
+          <h5 className="extra-card">Comfort Level: {trick.Comfort}</h5>
+          <h5 className="extra-card">
+            Date Landed: {trick["Date Landed"]}
+            <FaTimes
+              size={25}
+              className="edit"
+              style={{ color: "red" }}
+              onClick={() => erase()}
+            />
+            <FaEdit size={25} className="edit" onClick={() => {setShowEdit(!showEdit); setExpand(!expand)}} />
+          </h5>
+          <h5 className="extra-card">Notes: {trick.Notes}</h5>
+          </div> )}
+          </div>
+          {showEdit && expand && (
+            <div>
+              <form onSubmit={(e) => edit(e)}>
+                <div className="form-option">
+                  <label>New Comfort Level</label>
+                  <select onChange={(e) => changeComfortLevel(e.target.value)}>
+                    <option value="1">Landed Once</option>
+                    <option value="2">Landed Multiple Times</option>
+                    <option value="3">Lands 50% of the Time</option>
+                    <option value="4">Easily Lands</option>
+                  </select>
+                </div>
+                <div className="form-option">
+                  <label>New Notes</label>
+                  <input
+                    type="text"
+                    placeholder={trick.Notes}
+                    value={newNotes}
+                    onChange={(e) => setNewNotes(e.target.value)}
+                  />
+                </div>
+                <div className="form-btn">
+                  <input
+                    className="button"
+                    type="submit"
+                    value="Update Trick"
+                  />
+                </div>
+              </form>
+            </div>
+          )}
         </div>
-    )
-}
+  );
+};
 
-export default TrickCard
+export default TrickCard;

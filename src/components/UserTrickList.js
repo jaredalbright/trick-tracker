@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TrickCard from "./TrickCard";
 
-const UserTrickList = ({ tricks }) => {
+const UserTrickList = ({ tricks, refresh, setRefresh }) => {
   const [select, setSelect] = useState("1");
   const [userTricks, setUserTricks] = useState([]);
 
@@ -15,7 +15,6 @@ const UserTrickList = ({ tricks }) => {
   const compAlpha = () => {
       tricks.sort(function(a,b){
         var keyA = a.name.toLowerCase(), keyB = b.name.toLowerCase();
-        console.log(keyA);
         if (keyA > keyB) {
             return 1
         }
@@ -26,7 +25,6 @@ const UserTrickList = ({ tricks }) => {
             return 0;
         }
       })
-      console.log(tricks);
   };
 
   const compDate = () => {
@@ -42,13 +40,11 @@ const UserTrickList = ({ tricks }) => {
             return 0;
         }
       })
-      console.log(tricks);
   };
 
   const compComfort = () => {
     tricks.sort(function(a,b){
         var keyA = a.Comfort, keyB = b.Comfort;
-        console.log(keyA);
         if (keyA > keyB) {
             return 1
         }
@@ -59,7 +55,6 @@ const UserTrickList = ({ tricks }) => {
             return 0;
         }
       })
-      console.log(tricks);
   };
 
   const selector = () => {
@@ -101,7 +96,7 @@ const UserTrickList = ({ tricks }) => {
           <br></br>
       </form>
         {(tricks.length > 0) && tricks.map((trick) => (
-                <TrickCard key = {trick._id} trick = {trick}/>
+                <TrickCard key = {trick._id} trick = {trick} refresh={setRefresh}/>
             ))}
     </div>
   );

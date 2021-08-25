@@ -19,7 +19,6 @@ exports.getRiderTList = async (req, res, next) => {
 
 exports.getUserList = async (req, res, next) => {
     try {
-        console.log(req.query.user_name);
         const RiderTricks = await RiderTrick.find(req.query);
 
         return res.status(200).json ({
@@ -37,7 +36,6 @@ exports.getUserList = async (req, res, next) => {
 
 exports.addRiderTrick = async (req, res, next) => {
     try {
-        console.log(req.body);
         const { trickID, side, rDirection, rotation, name, invert, edge, date, comfort, notes } = req.body;
 
         const trick = await RiderTrick.create(req.body);
@@ -49,7 +47,6 @@ exports.addRiderTrick = async (req, res, next) => {
     } catch (error) {
         if(error.name === 'ValidationError') {
             const messages = Object.values(error.errors).map(val => val.message);
-            console.log(messages);
             res.status(400).json({
                 success: false,
                 error: messages

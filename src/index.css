@@ -37,7 +37,7 @@
   margin-left: 80px;
 }
 .form-container {
-  border: 1px solid #4C61EB;
+  border: 3px solid #4C61EB;
   border-radius: 5px;
   padding: 20px;
   max-width: 400px;
@@ -64,10 +64,11 @@
 }
 
 .user-dash {
-  border: 1px solid #4C61EB;
+  border: 3px solid #4C61EB;
   border-radius: 5px;
   padding: 20px;
   min-height: 400px;
+  margin-top: 30px;
 }
 
 .extra-card {

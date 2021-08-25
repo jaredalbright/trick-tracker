@@ -4,13 +4,12 @@ import Login from "./components/Login";
 import UserDash from "./components/UserDash"
 import { useState } from "react";
 import React from "react";
-//import trickDataService from "../services/trickDB"
-//import { Switch, Route, Link} from "react-router-dom";
 
 function App() {
   const [showNewTrick, setShowNewTrick] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [trickRefresh, setTrickRefresh] = useState(false);
 
   return (
     <div className="App">
@@ -24,8 +23,8 @@ function App() {
           loginOff={() => setShowLoginForm(!showLoginForm)}
         />
       )}
-      {(userInfo.length > 0 && showNewTrick) && <AddTrick userInfo = {userInfo}/>}
-      {(userInfo.length > 0) && <UserDash userInfo = {userInfo}/>}
+      {(userInfo.length > 0 && showNewTrick) && <AddTrick userInfo = {userInfo} trickMenu = {() => setShowNewTrick(!showNewTrick)} setRefresh={() => setTrickRefresh(!trickRefresh)}/>}
+      {(userInfo.length > 0) && <UserDash userInfo = {userInfo} refresh = {trickRefresh} setRefresh={() => setTrickRefresh(!trickRefresh)}/>}
     </div>
   );
 }

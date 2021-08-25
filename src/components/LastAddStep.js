@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import trickDataService from "../services/trickDB.js";
+import UserDash from "./UserDash";
 
-const LastAddStep = ({ trick, userInfo }) => {
+const LastAddStep = ({ trick, userInfo, trickMenu, refresh }) => {
   const [comfort, setComfort] = useState("1");
   const [date, setDate] = useState("2000-01-01");
   const [notes, setNotes] = useState("");
@@ -18,8 +19,6 @@ const LastAddStep = ({ trick, userInfo }) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log(trick);
-
     trick['Comfort'] = comfort;
     trick['Date Landed'] = date;
     trick['Notes'] = notes;
@@ -28,8 +27,16 @@ const LastAddStep = ({ trick, userInfo }) => {
     trick['user_id'] = userInfo[1];
     trick['user_name'] = userInfo[0];
     
-    console.log(trick);
-    trickDataService.addToTrickList(trick);
+    
+    trickDataService.addToTrickList(trick)
+    .then(() => {
+      trickMenu();
+
+      refresh();
+    })
+    .catch(e => {
+        console.log(e);
+    });
   };
 
   return (
