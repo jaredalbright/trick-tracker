@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import trickDataService from "../services/trickDB.js";
 
 const Login = ({setUserInfo, loginOff}) => {
     const [name, setName] = useState("");
@@ -10,9 +11,21 @@ const Login = ({setUserInfo, loginOff}) => {
             return
         }
         
-        setUserInfo([name, pass]);
+        trickDataService.getByUserName({user_name:name})
+        .then(response => {
+            if (response.data.data[0].user_id != pass) {
+                alert("Incorrect Password")
+                return
+            }
+            else {
+                setUserInfo([name, pass]);
 
-        loginOff();
+                loginOff();
+            }
+        })
+        .catch(e => {
+            console.log(e);
+        });
     }
     return (
         <div className = "form-container">

@@ -67,9 +67,9 @@ const TrickCard = ({ trick, loadTrick, refresh }) => {
           </div> )}
           </div>
           {showEdit && expand && (
-            <div>
+            <div className = "edit-container">
               <form onSubmit={(e) => edit(e)}>
-                <div className="form-option">
+                <div className="edit-option">
                   <label>New Comfort Level</label>
                   <select onChange={(e) => changeComfortLevel(e.target.value)}>
                     <option value="1">Landed Once</option>
@@ -78,7 +78,7 @@ const TrickCard = ({ trick, loadTrick, refresh }) => {
                     <option value="4">Easily Lands</option>
                   </select>
                 </div>
-                <div className="form-option">
+                <div className="edit-option">
                   <label>New Notes</label>
                   <input
                     type="text"

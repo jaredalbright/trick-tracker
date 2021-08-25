@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
 
+
 .container {
   max-width: 700px;
   margin: 30px auto;
@@ -20,6 +21,8 @@
 }
 
 .button {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
   background-color: #EBA957;
   border-radius: 5px;
   padding: 10px;
@@ -45,6 +48,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  font-family: Arial, sans-serif;
 }
 
 .form-btn {
@@ -53,14 +57,14 @@
 
 .trick-card {
   color: #fff;
-  background-color: #5A9E2B;
-  border: 3px solid #5A9E2B;
+  background-color: #5e5e5e;
+  border: 3px solid #949494;
   border-radius: 5px;
   padding: 5px;
   margin-top: 10px;
 }
 .trick-card:hover {
-  background-color: #7FEB34;
+  background-color: #a5a5a5;
 }
 
 .user-dash {
@@ -69,6 +73,7 @@
   padding: 20px;
   min-height: 400px;
   margin-top: 30px;
+  font-family: Arial, sans-serif;
 }
 
 .extra-card {
@@ -84,3 +89,18 @@
   cursor: pointer;
 }
 
+.edit-option {
+  padding-left: 80px
+}
+
+.edit-container {
+  padding: 20px;
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.nametag {
+  font-weight: bold;
+  font-size: 25px;
+}

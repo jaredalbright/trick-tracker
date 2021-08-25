@@ -18,7 +18,9 @@ const UserDash = ({userInfo, refresh, setRefresh}) => {
     const loading = tricks.length > 0;
     return (
         <div className = "user-dash">
+            <div className = "nametag">
             Welcome {userInfo[0]}
+            </div>
             {
                 loading ? (<UserTrickList tricks = {tricks} refresh = {refresh} setRefresh={setRefresh}/>) : "No Tricks Found"
             }
